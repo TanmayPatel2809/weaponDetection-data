@@ -1,0 +1,22 @@
+services:
+  app:
+    user: "${USER_ID:-1000}"
+    hostname: "${HOST_NAME:-tanmay}"
+    image: weapondetection-data
+    container_name: weapondetection-data-container
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+      args:
+        USER_NAME: "${USER_NAME:-tanmay}"
+        USER_ID: "${USER_ID:-1000}"
+    volumes:
+      - ./:/app/
+      - ~/.config/gcloud/:/home/${USER_NAME}/.config/gcloud
+      - ~/.ssh:/home/${USER_NAME}/.ssh
+    ports:
+      - 8888:8888
+    ipc: host
+    init: true
+
+
